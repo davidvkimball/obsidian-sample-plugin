@@ -1,6 +1,6 @@
 <!--
 Source: Based on Obsidian community best practices
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check Obsidian community discussions for updates
 Applicability: Both
 -->
@@ -19,4 +19,5 @@ Applicability: Both
 - Ensure CSS works correctly on mobile viewports.
 - Consider touch-friendly UI elements and spacing.
 - Test theme appearance in both light and dark modes on mobile.
+
 

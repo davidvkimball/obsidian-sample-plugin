@@ -1,6 +1,6 @@
 <!--
 Source: Project-specific quick reference
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Update as needed
 Applicability: Both
 -->
@@ -22,9 +22,9 @@ When you run `git pull` in a reference repository:
 
 ### If Using Symlinks (Central Location)
 
-```powershell
-# Navigate to your central refs directory
-cd C:\Users\david\Development\.ref
+```bash
+# Navigate to your central refs directory (adjust path as needed)
+cd ../.ref  # or cd ~/Development/.ref
 
 # Pull all repos at once
 cd obsidian-api && git pull && cd ..
@@ -34,9 +34,18 @@ cd obsidian-plugin-docs && git pull && cd ..
 cd obsidian-sample-theme && git pull && cd ..
 ```
 
-Or use a simple loop:
+Or use a simple loop (bash/zsh):
+```bash
+cd ../.ref  # or cd ~/Development/.ref
+for repo in obsidian-api obsidian-sample-plugin obsidian-developer-docs obsidian-plugin-docs obsidian-sample-theme; do
+    echo "Pulling $repo..."
+    cd "$repo" && git pull && cd ..
+done
+```
+
+Or PowerShell (Windows):
 ```powershell
-cd C:\Users\david\Development\.ref
+cd ..\.ref  # Adjust path as needed
 foreach ($repo in @('obsidian-api', 'obsidian-sample-plugin', 'obsidian-developer-docs', 'obsidian-plugin-docs', 'obsidian-sample-theme')) {
     Write-Host "Pulling $repo..."
     cd $repo
@@ -47,7 +56,7 @@ foreach ($repo in @('obsidian-api', 'obsidian-sample-plugin', 'obsidian-develope
 
 ### If Using Local Clones (In Project)
 
-```powershell
+```bash
 # From your project root
 cd .ref
 
@@ -63,9 +72,9 @@ cd obsidian-sample-theme && git pull && cd ..
 
 After pulling, see what's new:
 
-```powershell
+```bash
 # See recent commits in a repo
-cd .ref\obsidian-sample-plugin
+cd .ref/obsidian-sample-plugin
 git log --oneline -10
 
 # See what files changed in the last update
@@ -101,14 +110,12 @@ See [sync-procedure.md](sync-procedure.md) for the complete workflow.
 
 ## Example: Quick Check Workflow
 
-```powershell
-# 1. Pull all repos (using symlinks)
-cd C:\Users\david\Development\.ref
-foreach ($repo in @('obsidian-api', 'obsidian-sample-plugin', 'obsidian-developer-docs', 'obsidian-plugin-docs')) {
-    cd $repo
-    git pull
-    cd ..
-}
+```bash
+# 1. Pull all repos (using symlinks - adjust path as needed)
+cd ../.ref  # or cd ~/Development/.ref
+for repo in obsidian-api obsidian-sample-plugin obsidian-developer-docs obsidian-plugin-docs; do
+    cd "$repo" && git pull && cd ..
+done
 
 # 2. Check if Sample Plugin's AGENTS.md changed
 cd obsidian-sample-plugin
@@ -119,4 +126,18 @@ git diff HEAD~1 HEAD -- AGENTS.md
 
 # 4. Now you can manually update your .agents files based on what changed
 ```
+
+**PowerShell version (Windows)**:
+```powershell
+# 1. Pull all repos (using symlinks - adjust path as needed)
+cd ..\.ref
+foreach ($repo in @('obsidian-api', 'obsidian-sample-plugin', 'obsidian-developer-docs', 'obsidian-plugin-docs')) {
+    cd $repo
+    git pull
+    cd ..
+}
+
+# 2-4. Same as above
+```
+
 

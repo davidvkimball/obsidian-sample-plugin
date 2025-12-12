@@ -1,6 +1,6 @@
 <!--
 Source: Based on Obsidian Developer Policies and Guidelines
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check Obsidian Developer Policies for updates
 Applicability: Both
 -->
@@ -20,4 +20,5 @@ Follow Obsidian's **Developer Policies** and **Plugin Guidelines**. In particula
 **Plugins**: Register and clean up all DOM, app, and interval listeners using the provided `register*` helpers so the plugin unloads safely.
 
 **Themes**: Themes are CSS-only and have minimal security surface area, but still follow privacy guidelines for any optional features.
+
 

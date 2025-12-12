@@ -1,6 +1,6 @@
 <!--
 Source: Based on Obsidian style guide and UX guidelines
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check Obsidian style guide for updates
 Applicability: Both
 -->
@@ -12,4 +12,5 @@ Applicability: Both
 - Use **bold** to indicate literal UI labels. Prefer "select" for interactions.
 - Use arrow notation for navigation: **Settings → Community plugins**.
 - Keep in-app strings short, consistent, and free of jargon.
+
 

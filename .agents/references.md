@@ -1,6 +1,6 @@
 <!--
 Source: Obsidian official documentation and resources
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check periodically for new resources
 Applicability: Both
 -->
@@ -19,4 +19,5 @@ Applicability: Both
 - Developer policies: https://docs.obsidian.md/Developer+policies
 - Plugin guidelines: https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines
 - Style guide: https://help.obsidian.md/style-guide
+
 

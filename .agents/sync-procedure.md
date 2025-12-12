@@ -1,11 +1,13 @@
 <!--
 Source: Project-specific procedure
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Update as sync process evolves
 Applicability: Both
 -->
 
 # Sync Procedure: Keeping .agents Up to Date
+
+**Sync Tracking**: All sync dates are tracked centrally in [sync-status.json](sync-status.json). Always update this file with the actual current date when syncing (use `Get-Date -Format "yyyy-MM-dd"` to get the date - never use placeholder dates).
 
 This document outlines the standard procedure for keeping the `.agents` directory content synchronized with the latest updates from:
 - [Obsidian Sample Plugin](https://github.com/obsidianmd/obsidian-sample-plugin) - Template plugin with best practices
@@ -25,39 +27,45 @@ This document outlines the standard procedure for keeping the `.agents` director
 
 ## Sync Workflow
 
+**Before starting**: Get the current date for tracking (always use actual date, never placeholder):
+```powershell
+$syncDate = Get-Date -Format "yyyy-MM-dd"
+Write-Host "Sync date: $syncDate"
+```
+
 ### Step 1: Update Reference Repositories
 
 Update the reference repos to get the latest content:
 
-```powershell
-# If using symlinks to a central location:
-cd C:\Users\david\Development\.ref\obsidian-api
+```bash
+# If using symlinks to a central location (adjust path as needed):
+cd ../.ref/obsidian-api  # or cd ~/Development/.ref/obsidian-api
 git pull
 
-cd ..\obsidian-sample-plugin
+cd ../obsidian-sample-plugin
 git pull
 
-cd ..\obsidian-developer-docs
+cd ../obsidian-developer-docs
 git pull
 
-cd ..\obsidian-plugin-docs
+cd ../obsidian-plugin-docs
 git pull
 
 # Optionally update sample theme
-cd ..\obsidian-sample-theme
+cd ../obsidian-sample-theme
 git pull
 
 # OR if using local clones in each project:
-cd .ref\obsidian-api
+cd .ref/obsidian-api
 git pull
 
-cd ..\obsidian-sample-plugin
+cd ../obsidian-sample-plugin
 git pull
 
-cd ..\obsidian-developer-docs
+cd ../obsidian-developer-docs
 git pull
 
-cd ..\obsidian-plugin-docs
+cd ../obsidian-plugin-docs
 git pull
 ```
 
@@ -139,14 +147,21 @@ For each file that needs updating:
    - Adapt to match the topic-based structure
    - Preserve any project-specific additions
 
-3. **Update the header**:
-   ```markdown
-   <!--
-   Source: Based on Obsidian Sample Plugin and community plugin guidelines
-   Last synced: YYYY-MM-DD  <!-- Update this date -->
-   Update frequency: Check Obsidian Sample Plugin repo for updates
-   -->
+3. **Update the sync status**:
+   ```powershell
+   # Get the current date
+   $syncDate = Get-Date -Format "yyyy-MM-dd"
+   
+   # Update the central sync-status.json file
+   # Edit .agents/sync-status.json and update:
+   # - "lastFullSync" to the current date
+   # - "lastSyncSource" to describe what was synced
+   # - Update relevant source repo dates in "sourceRepos"
    ```
+   
+   **Important**: Always use the actual current date from `Get-Date -Format "yyyy-MM-dd"`, never use placeholder dates.
+
+4. **Note**: Individual file headers still have "Last synced" dates, but the authoritative source is `.agents/sync-status.json`. When syncing, update the central file rather than individual file headers.
 
 ### Step 5: Verify and Test
 
@@ -166,7 +181,7 @@ For each file that needs updating:
 - [ ] Review developer docs for policy/guideline updates
 - [ ] Review plugin docs for best practices
 - [ ] Update relevant `.agents/*.md` files
-- [ ] Update "Last synced" dates in file headers
+- [ ] **Update `.agents/sync-status.json` with actual current date** (use `Get-Date -Format "yyyy-MM-dd"` - never use placeholder dates)
 - [ ] Review and commit changes
 
 ## Frequency Recommendations
@@ -184,9 +199,27 @@ Consider creating a script to:
 - Generate a diff report of what changed
 - Remind to update "Last synced" dates
 
+## Updating Sync Status
+
+After completing a sync, update `.agents/sync-status.json`:
+
+```powershell
+# Get actual current date (CRITICAL: never use placeholder!)
+$syncDate = Get-Date -Format "yyyy-MM-dd"
+
+# Update sync-status.json with:
+# - "lastFullSync": "$syncDate"
+# - "lastSyncSource": "Description of what was synced"
+# - Update relevant dates in "sourceRepos" section for repos that were checked/synced
+```
+
+**Critical**: Always use the actual date from `Get-Date -Format "yyyy-MM-dd"`. Never use placeholder dates like "YYYY-MM-DD" or hardcoded dates. The sync-status.json file is the authoritative source for all sync dates.
+
 ## Notes
 
 - Not all changes need to be synced immediately - focus on breaking changes and new best practices
 - Some content may be project-specific and shouldn't be overwritten
 - Always review changes before committing to ensure they make sense for your project
+- **Always update sync-status.json with the actual current date** - this is the authoritative source for sync dates
+
 

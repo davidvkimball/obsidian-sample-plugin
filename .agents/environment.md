@@ -1,6 +1,6 @@
 <!--
 Source: Based on Obsidian Sample Plugin and Sample Theme
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check Obsidian Sample Plugin and Sample Theme repos for updates
 Applicability: Plugin / Theme
 -->
@@ -34,10 +34,12 @@ npm run dev
 npm run build
 ```
 
+**Important for AI Agents**: Always run `npm run build` after making changes to plugins to catch build errors early. If npm is not installed, install it first with `npm install` (or install Node.js if npm is not available).
+
 ### Linting
 
 - To use eslint install eslint from terminal: `npm install -g eslint`
-- To use eslint to analyze this project use this command: `eslint main.ts`
+- To use eslint to analyze this project use this command: `eslint src/main.ts` (note: `main.ts` is in `src/`, not root)
 - eslint will then create a report with suggestions for code improvement by file and line number.
 - If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder: `eslint ./src/`
 
@@ -59,8 +61,19 @@ npm install -D sass
 npm run build  # Compile SCSS to CSS
 ```
 
+### Theme Build (Grunt)
+
+For themes using Grunt (like Obsidian Sample Theme):
+
+```bash
+npx grunt build
+```
+
+**Important for AI Agents**: Always run `npx grunt build` after making changes to themes to catch build errors early. If npm is not installed, install it first with `npm install` (or install Node.js if npm is not available).
+
 ### Linting (Optional)
 
 - Use `stylelint` for CSS/SCSS linting: `npm install -D stylelint`
 - Configure stylelint for Obsidian theme conventions
+
 

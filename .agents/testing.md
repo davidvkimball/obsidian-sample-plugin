@@ -1,6 +1,6 @@
 <!--
 Source: Based on Obsidian Sample Plugin and Sample Theme
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check Obsidian Sample Plugin and Sample Theme repos for updates
 Applicability: Plugin / Theme
 -->
@@ -22,4 +22,5 @@ Applicability: Plugin / Theme
   <Vault>/.obsidian/themes/<theme-name>/
   ```
 - Reload Obsidian and select the theme in **Settings → Appearance → Themes**.
+
 

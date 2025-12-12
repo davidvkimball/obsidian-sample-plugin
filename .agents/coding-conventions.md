@@ -1,6 +1,6 @@
 <!--
 Source: Based on Obsidian Sample Plugin and TypeScript best practices
-Last synced: 2025-01-27
+Last synced: See sync-status.json for authoritative sync dates
 Update frequency: Check Obsidian Sample Plugin repo for updates
 Applicability: Plugin
 -->
@@ -16,4 +16,5 @@ Applicability: Plugin
 - Bundle everything into `main.js` (no unbundled runtime deps).
 - Avoid Node/Electron APIs if you want mobile compatibility; set `isDesktopOnly` accordingly.
 - Prefer `async/await` over promise chains; handle errors gracefully.
+
 

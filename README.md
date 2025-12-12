@@ -51,6 +51,18 @@ Quick starting guide for new plugin devs:
 - `npm i` or `yarn` to install dependencies.
 - `npm run dev` to start compilation in watch mode.
 
+## Setting up Reference Materials (.ref folder)
+
+This project uses a `.ref` folder (gitignored) to reference Obsidian documentation and other projects. To set up:
+
+1. **One-time setup**: Create a central `.ref` directory on your computer (e.g., `C:\Users\YourName\Development\.ref` or `~/Development/.ref`) and clone the 5 core Obsidian projects there. See [.agents/ref-instructions.md](.agents/ref-instructions.md) for details.
+
+2. **Per-project setup**: Run the setup script to create symlinks in this project:
+   - **Windows**: `scripts\setup-ref-links.bat` or `.\scripts\setup-ref-links.ps1`
+   - **macOS/Linux**: `./scripts/setup-ref-links.sh`
+
+The setup scripts will automatically detect your central `.ref` location and create the necessary symlinks. This allows all your projects to reference the same central location without duplicating repos.
+
 ## Manually installing the plugin
 
 - Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
