@@ -52,7 +52,7 @@ If this project references specific plugins or themes that are relevant to its d
 - `.ref/plugins/plugin-name/` - Reference to a specific plugin that demonstrates patterns used in this project
 - `.ref/themes/theme-name/` - Reference to a specific theme that demonstrates patterns used in this project
 
-**Note**: The 5 core Obsidian projects (obsidian-api, obsidian-sample-plugin, obsidian-developer-docs, obsidian-plugin-docs, obsidian-sample-theme) are always relevant and should be in every project's `.ref` folder. Only document project-specific plugins/themes here.
+**Note**: The 6 core Obsidian projects (obsidian-api, obsidian-sample-plugin, obsidian-developer-docs, obsidian-plugin-docs, obsidian-sample-theme, eslint-plugin) are always relevant and should be in every project's `.ref` folder. Only document project-specific plugins/themes here.
 
 **Current project-specific references**: None currently.
 

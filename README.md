@@ -55,27 +55,48 @@ Quick starting guide for new plugin devs:
 
 This project uses a `.ref` folder (gitignored) to reference Obsidian documentation and other projects. To set up:
 
-1. **One-time setup**: Create a central `.ref` directory on your computer (e.g., `C:\Users\YourName\Development\.ref` or `~/Development/.ref`) and clone the 5 core Obsidian projects there. See [.agents/ref-instructions.md](.agents/ref-instructions.md) for details.
+1. **One-time setup**: Create a central `.ref/obsidian-dev` directory on your computer (e.g., `C:\Users\YourName\Development\.ref\obsidian-dev` or `~/Development/.ref/obsidian-dev`) and clone the 6 core Obsidian projects there. See [.agents/ref-instructions.md](.agents/ref-instructions.md) for details.
 
 2. **Per-project setup**: Run the setup script to create symlinks in this project:
    - **Windows**: `scripts\setup-ref-links.bat` or `.\scripts\setup-ref-links.ps1`
    - **macOS/Linux**: `./scripts/setup-ref-links.sh`
 
-The setup scripts will automatically detect your central `.ref` location and create the necessary symlinks. This allows all your projects to reference the same central location without duplicating repos.
+The setup scripts will automatically:
+- Detect your central `.ref/obsidian-dev` location
+- Clone the 6 core Obsidian projects if they don't exist
+- Pull the latest changes if the repos already exist
+- Create the necessary symlinks
+
+This allows all your projects to reference the same central location without duplicating repos. You can re-run the setup script anytime to keep your reference repos up to date.
 
 ## Manually installing the plugin
 
 - Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint ./src/`
+## Improve code quality with eslint
+
+This project includes ESLint with `eslint-plugin-obsidianmd` to catch common issues and enforce Obsidian plugin best practices.
+
+**Note**: This project includes an `.npmrc` file that automatically configures npm to use `legacy-peer-deps` mode, which helps resolve dependency conflicts. When copying this template, make sure to include the `.npmrc` file.
+
+### Running ESLint
+
+- **Check for issues**: `npm run lint`
+- **Auto-fix issues**: `npm run lint:fix`
+- **Check specific file**: `npx eslint main.ts`
+- **Check specific directory**: `npx eslint src/`
+
+### Common Issues Caught
+
+ESLint will catch issues like:
+- Unhandled promises (missing `await` or error handling)
+- Command IDs/names that include plugin ID/name
+- Direct style manipulation (should use CSS classes or `setCssProps()`)
+- Creating style elements (should use `styles.css` instead)
+- Using deprecated APIs (like `navigator.platform`)
+- And many more...
+
+See [.agents/linting-fixes-guide.md](.agents/linting-fixes-guide.md) for detailed fixes for all common issues.
 
 ## Funding URL
 

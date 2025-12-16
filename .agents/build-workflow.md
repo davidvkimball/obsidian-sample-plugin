@@ -22,28 +22,45 @@ After making any changes to plugin code:
    ```powershell
    npm --version
    ```
-   - If npm is not found, inform the user that Node.js/npm needs to be installed
+   - If npm is not found, inform the user that Node.js (which includes npm) needs to be installed
    - Do not automatically install npm - let the user handle installation
 
-3. **Check for errors** and fix any build issues before proceeding.
+3. **Check for errors** and fix any build issues before proceeding. See [troubleshooting.md](troubleshooting.md) and [common-pitfalls.md](common-pitfalls.md) for common build issues.
 
 ## For Themes
 
 After making any changes to theme code:
 
+### Simple CSS Themes
+
+If your theme is simple with just `theme.css` and no build tools:
+
+- **No build step required** - just edit `theme.css` directly
+- Changes take effect immediately when Obsidian reloads the theme
+
+### Themes with Build Tools
+
+If your theme uses build tools (Grunt, npm scripts, SCSS compiler, etc.):
+
 1. **Run the build** (assume npm is already installed):
    ```powershell
+   # For themes using Grunt
    npx grunt build
+   
+   # For themes using npm scripts
+   npm run build
+   
+   # Or whatever build command your theme uses
    ```
 
 2. **If the build fails with npm/node errors**, then check if npm is installed:
    ```powershell
    npm --version
    ```
-   - If npm is not found, inform the user that Node.js/npm needs to be installed
+   - If npm is not found, inform the user that Node.js (which includes npm) needs to be installed
    - Do not automatically install npm - let the user handle installation
 
-3. **Check for errors** and fix any build issues before proceeding.
+3. **Check for errors** and fix any build issues before proceeding. See [troubleshooting.md](troubleshooting.md) and [common-pitfalls.md](common-pitfalls.md) for common build issues.
 
 ## Why This Matters
 
