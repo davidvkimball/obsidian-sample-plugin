@@ -150,6 +150,11 @@ The script will automatically:
 
 **Note:** The `.ref` folder is gitignored and acts as a "portal" to reference materials. It doesn't contain actual files, just symlinks. All your projects can share the same central reference repos.
 
+**Windows Users:** Creating symlinks on Windows may require administrator privileges. If you get a "permission denied" error:
+- Run PowerShell or Command Prompt as Administrator, then run the setup script
+- Or enable Developer Mode in Windows Settings (Settings → Privacy & Security → For developers → Developer Mode)
+- The script uses directory junctions (`mklink /J`) which work without admin rights in most cases
+
 ## First Time Developing Plugins?
 
 Quick starting guide for new plugin devs:
@@ -231,6 +236,11 @@ If `.ref` folder is empty or symlinks are broken:
 1. Re-run the appropriate setup script (`.bat` for Windows, `.sh` for macOS/Linux)
 2. Check that the central location exists: `../.ref/obsidian-dev/`
 3. Verify symlinks were created in your project's `.ref/` folder
+
+**Windows symlink issues:**
+- If you get "permission denied" errors, run PowerShell/CMD as Administrator
+- Or enable Developer Mode: Settings → Privacy & Security → For developers → Developer Mode
+- Directory junctions should work without admin rights in most cases
 
 ## Releasing New Releases
 

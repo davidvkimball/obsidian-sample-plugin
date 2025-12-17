@@ -346,6 +346,15 @@ function fixBuiltinModules(esbuildConfigPath, projectRoot) {
 }
 
 function setupESLint() {
+  // Check Node.js version (requires v16+)
+  const nodeVersion = process.version;
+  const majorVersion = parseInt(nodeVersion.slice(1).split('.')[0]);
+  if (majorVersion < 16) {
+    console.error(`❌ Error: Node.js v16+ is required (found ${nodeVersion})`);
+    console.error('Please upgrade Node.js from https://nodejs.org/');
+    process.exit(1);
+  }
+  
   // Get the directory where this script is located
   const scriptDir = dirname(fileURLToPath(import.meta.url));
   // Resolve project root (one level up from scripts folder)
