@@ -44,7 +44,12 @@ export default defineConfig([
       "@typescript-eslint/no-empty-function": "off",
       "no-prototype-builtins": "off",
       "@typescript-eslint/no-misused-promises": ["error", {
-        "checksVoidReturn": false
+        "checksVoidReturn": {
+          "attributes": false,
+          "properties": false,
+          "returns": false,
+          "variables": false
+        }
       }]
     },
   },
