@@ -79,10 +79,13 @@ export default defineConfig([
 
 **Run ESLint**:
 ```bash
-npm run lint
+npm run lint        # Uses lint-wrapper.mjs for helpful success messages
+npm run lint:fix    # Auto-fix issues where possible
 # Or for specific files:
 npx eslint src/**/*.ts
 ```
+
+**Note**: The setup script (`node scripts/setup-eslint.mjs`) automatically creates `scripts/lint-wrapper.mjs` which adds helpful success messages when linting passes. The wrapper is included in the template and copied during setup.
 
 **Common issues caught by `eslint-plugin-obsidianmd`**: See [common-pitfalls.md](common-pitfalls.md#common-linting-issues) for details on style manipulation, settings headings, UI text case, file deletion, and more.
 
@@ -122,5 +125,13 @@ Only use build commands if your theme has a `Gruntfile.js`, `package.json` with 
 
 - Use `stylelint` for CSS/SCSS linting: `npm install -D stylelint`
 - Configure stylelint for Obsidian theme conventions
+- **Quick Setup**: Run `node scripts/setup-stylelint.mjs` to set up Stylelint with helpful success messages
+- **Run Stylelint**:
+  ```bash
+  npm run lint        # Uses lint-wrapper.mjs for helpful success messages
+  npm run lint:fix    # Auto-fix issues where possible
+  ```
+
+**Note**: The setup script automatically creates `scripts/lint-wrapper.mjs` which adds helpful success messages when linting passes. The wrapper is included in the template and copied during setup.
 
 

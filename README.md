@@ -164,8 +164,9 @@ Quick starting guide for new plugin devs:
 - Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
 - Install NodeJS (v16+), then run `npm i` in the command line under your repo folder.
 - **Optional but recommended**: Run the setup scripts (see above)
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
+- Run `npm run dev` to compile your plugin from `main.ts` to `main.js` in the root (for local testing).
 - Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
+- **Note**: The `main.js` in root is for development only. For releases, run `npm run build` which creates `dist/main.js`.
 - Reload Obsidian to load the new version of your plugin.
 - Enable plugin in settings window.
 - For updates to the Obsidian API run `npm update` in the command line under your repo folder.
@@ -177,7 +178,12 @@ Quick starting guide for new plugin devs:
 - Clone this repo.
 - Make sure your NodeJS is at least v16 (`node --version`).
 - `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+- **Development**: `npm run dev` to start compilation in watch mode
+  - Builds to `main.js` in root (for local testing in Obsidian)
+  - This file is gitignored and only used for development
+- **Production**: `npm run build` to create production build
+  - Builds to `dist/main.js` (this is what you upload to GitHub releases)
+  - The `dist/` folder contains your release-ready files
 
 ### Using the AI System
 
@@ -198,10 +204,12 @@ Quick starting guide for new plugin devs:
 
 ### Using ESLint
 
-- **Check for issues**: `npm run lint`
-- **Auto-fix issues**: `npm run lint:fix`
+- **Check for issues**: `npm run lint` (shows helpful success message when passing)
+- **Auto-fix issues**: `npm run lint:fix` (shows helpful success message when fixed)
 - **Check specific file**: `npx eslint main.ts`
 - **Check specific directory**: `npx eslint src/`
+
+**Note**: The lint commands use `scripts/lint-wrapper.mjs` which adds helpful success messages. This file is automatically created/updated when you run `node scripts/setup-eslint.mjs`.
 
 **Common Issues Caught:**
 - Unhandled promises (missing `await` or error handling)
@@ -246,9 +254,20 @@ If `.ref` folder is empty or symlinks are broken:
 
 - Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
 - Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
+- **Build for production**: Run `npm run build` to create production build
+  - This creates all release files in the `dist/` folder:
+    - `dist/main.js` (compiled from TypeScript)
+    - `dist/manifest.json` (copied from root)
+    - `dist/styles.css` (copied from root, if present)
+  - **All release files are now in one place!**
 - Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
+- **Upload all files from `dist/` folder**:
+  - Upload `dist/main.js` as `main.js`
+  - Upload `dist/manifest.json` as `manifest.json`
+  - Upload `dist/styles.css` as `styles.css` (if present)
 - Publish the release.
+
+**Important**: The `main.js` in the root is only for local development. Always use files from the `dist/` folder for releases.
 
 > You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
 > The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
@@ -262,7 +281,7 @@ If `.ref` folder is empty or symlinks are broken:
 
 ## Manually Installing the Plugin
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+- Copy over all files from `dist/` folder (for production builds) or from root (for dev builds) to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
 
 ## Funding URL
 

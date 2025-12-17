@@ -8,11 +8,12 @@
  * - Ensures TypeScript version is >=4.8.4 (required for ESLint compatibility)
  * - Generates eslint.config.mjs (flat config) configuration file
  * - Generates .npmrc configuration file
+ * - Copies lint-wrapper.mjs for helpful linting success messages
  * 
  * Usage: node scripts/setup-eslint.mjs
  */
 
-import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, unlinkSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -28,11 +29,45 @@ const ESLINT_DEPS = {
 };
 
 const ESLINT_SCRIPTS = {
-  "lint": "eslint .",
-  "lint:fix": "eslint . --fix"
+  "lint": "node scripts/lint-wrapper.mjs",
+  "lint:fix": "node scripts/lint-wrapper.mjs --fix"
 };
 
 const MIN_TYPESCRIPT_VERSION = "^4.8.4";
+
+function generateLintWrapper() {
+  return `#!/usr/bin/env node
+
+/**
+ * ESLint wrapper that adds helpful success messages
+ */
+
+import { spawn } from 'child_process';
+import process from 'process';
+
+const args = process.argv.slice(2);
+const hasFix = args.includes('--fix');
+
+// Run ESLint
+const eslint = spawn('npx', ['eslint', '.', ...args], {
+	stdio: 'inherit',
+	shell: true
+});
+
+eslint.on('close', (code) => {
+	if (code === 0) {
+		const message = hasFix 
+			? '\\n✓ Linting complete! All issues fixed automatically.\\n'
+			: '\\n✓ Linting passed! No issues found.\\n';
+		console.log(message);
+		process.exit(0);
+	} else {
+		// ESLint already printed errors, just exit with the code
+		process.exit(code);
+	}
+});
+`;
+}
 
 function generateEslintConfig(customRules = {}) {
   // Default custom rules (common overrides)
@@ -491,6 +526,31 @@ function setupESLint() {
     // Fix builtin-modules in esbuild.config.mjs and entryPoints
     const esbuildConfigUpdated = fixBuiltinModules(esbuildConfigPath, projectRoot);
     
+    // Generate and copy lint-wrapper.mjs if it doesn't exist or needs updating
+    const lintWrapperPath = join(projectRoot, 'scripts', 'lint-wrapper.mjs');
+    const lintWrapperSource = generateLintWrapper();
+    let lintWrapperUpdated = false;
+    
+    // Ensure scripts directory exists
+    const scriptsDir = join(projectRoot, 'scripts');
+    if (!existsSync(scriptsDir)) {
+      mkdirSync(scriptsDir, { recursive: true });
+    }
+    
+    if (!existsSync(lintWrapperPath)) {
+      writeFileSync(lintWrapperPath, lintWrapperSource, 'utf8');
+      console.log('✓ Created scripts/lint-wrapper.mjs');
+      lintWrapperUpdated = true;
+    } else {
+      // Update if content differs (in case of updates)
+      const existingContent = readFileSync(lintWrapperPath, 'utf8');
+      if (existingContent !== lintWrapperSource) {
+        writeFileSync(lintWrapperPath, lintWrapperSource, 'utf8');
+        console.log('✓ Updated scripts/lint-wrapper.mjs');
+        lintWrapperUpdated = true;
+      }
+    }
+    
     // Generate .npmrc file
     let npmrcUpdated = false;
     if (!existsSync(npmrcPath)) {
@@ -513,7 +573,7 @@ function setupESLint() {
       console.log('\n✓ package.json updated successfully!');
     }
     
-    if (updated || eslintConfigUpdated || esbuildConfigUpdated || npmrcUpdated) {
+    if (updated || eslintConfigUpdated || esbuildConfigUpdated || npmrcUpdated || lintWrapperUpdated) {
       console.log('\n✓ ESLint setup complete!');
       if (migratingFromEslint8) {
         console.log('✓ Successfully migrated from ESLint 8 to ESLint 9');

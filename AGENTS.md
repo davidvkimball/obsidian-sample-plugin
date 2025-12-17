@@ -2,7 +2,7 @@
 
 This file serves as the **project-specific entry point** for AI agents working on this Obsidian plugin project. General-purpose instructions are located in the [`.agents`](.agents/) directory.
 
-**Note**: The `.agents/` directory contains general-purpose guidance files for Obsidian plugin and theme development.
+**Note**: The `.agents/` directory contains guidance files tailored for Obsidian plugin development. Some files are plugin-specific, while others are shared with theme development.
 
 ---
 
@@ -86,6 +86,8 @@ None currently. This project follows the general `.agents` guidance.
 ### When to Consider Using `.agents/.context/` Directory
 
 If your project needs project-specific versions of multiple `.agents` files (e.g., custom `build-workflow.md`, `code-patterns.md`, etc.), consider creating a `.agents/.context/` directory structure. This advanced feature is optional and only needed for complex projects. See the Navigation section below for details on the `.context/` directory structure.
+
+**Note**: This template's `.agents` folder is tailored for plugins. Plugin-only files (like `code-patterns.md`, `commands-settings.md`, `release-readiness.md`) are not included in theme templates.
 
 ---
 
@@ -297,7 +299,8 @@ If your project needs project-specific versions of multiple `.agents` files (e.g
 **General `.agents` files** (most files in the `.agents/` directory):
 - Are synced from reference repos (Sample Plugin, API, etc.)
 - Should remain static and not be edited directly in plugin projects
-- Provide general-purpose guidance for all Obsidian plugins/themes
+- Provide guidance tailored for Obsidian plugin development
+- Some files are plugin-specific, others are shared with theme development
 - Can be updated by syncing from reference repositories
 
 **Project-specific files**:
@@ -407,9 +410,10 @@ See [ref-instructions.md](.agents/ref-instructions.md) for complete details.
 
 ## Important: .agents Folder
 
-The `.agents/` directory contains general-purpose guidance files for Obsidian plugin and theme development. This directory structure provides:
+The `.agents/` directory contains guidance files tailored for Obsidian plugin development. This directory structure provides:
 
-- **Reusable guidance**: General `.agents` files provide standard guidance for all Obsidian plugins/themes
+- **Plugin-specific guidance**: Files like `code-patterns.md`, `commands-settings.md`, and `release-readiness.md` are plugin-only
+- **Shared guidance**: Files like `build-workflow.md`, `file-conventions.md`, and `versioning-releases.md` have sections for both plugins and themes
 - **Project-specific content**: This `AGENTS.md` file remains project-specific and contains project-specific information
 - **Easy maintenance**: Files can be updated by syncing from reference repositories
 

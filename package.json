@@ -6,8 +6,8 @@
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
+		"lint": "node scripts/lint-wrapper.mjs",
+		"lint:fix": "node scripts/lint-wrapper.mjs --fix",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
 	"keywords": [],
@@ -26,6 +26,6 @@
 		"typescript-eslint": "^8.35.1",
 		"obsidian": "latest",
 		"tslib": "2.4.0",
-		"typescript": "^4.9.5"
+		"typescript": "^5.7.2"
 	}
 }
