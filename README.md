@@ -71,7 +71,6 @@ You can add these enhancements to your existing plugin:
    - `AGENTS.md` → Your plugin root
    - `.agents/` folder → Your plugin root
    - `scripts/` folder → Your plugin root
-   - `.github/` folder (optional) → Your plugin root (contains GitHub Actions workflows)
 
 2. **Setup reference materials**:
    - **Windows**: `scripts\setup-ref-links.bat`
@@ -146,19 +145,6 @@ The lint commands use `scripts/lint-wrapper.mjs` which adds helpful success mess
 
 > **Tip:** You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
 
-## GitHub Actions Workflows (Optional)
-
-This template includes GitHub Actions workflows in `.github/workflows/`:
-
-- **`lint.yml`** - Automatically checks your code on every push (builds and lints)
-- **`release.yml`** - Automatically creates GitHub releases when you push a version tag
-
-**These workflows are completely optional** - your plugin works fine without them. They're included as a convenience for automated testing and releases.
-
-**If you want to modify the workflows:**
-- You can edit them directly on GitHub.com (no special permissions needed)
-- If you want to push workflow changes via Git, you'll need a Personal Access Token with the `workflow` scope (see [GitHub's documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens))
-- Most users won't need to modify workflows - they work out of the box
 
 ## Adding Your Plugin to the Community Plugin List
 
@@ -201,8 +187,7 @@ If you're upgrading an existing plugin and encounter issues:
 1. **ESLint errors after setup**: Run `npm install` to ensure all dependencies are installed
 2. **Build errors**: Check that `esbuild.config.mjs` was updated correctly (the setup script should handle this automatically)
 3. **Entry point not found**: The setup script adds entry point detection - verify `esbuild.config.mjs` has the detection logic for both `src/main.ts` and `main.ts`
-4. **Workflow permission errors**: See [GitHub Actions Workflows (Optional)](#github-actions-workflows-optional) section above
-5. **Package.json conflicts**: Don't copy `package.json` from the template - the setup script updates your existing one with only the necessary additions
+4. **Package.json conflicts**: Don't copy `package.json` from the template - the setup script updates your existing one with only the necessary additions
 
 ### Common Issues
 
