@@ -67,21 +67,35 @@ These tools can significantly improve your plugin development workflow:
 
 You can add these enhancements to your existing plugin:
 
-1. **Copy these to your plugin**:
+1. **Copy these folders/files to your plugin**:
    - `AGENTS.md` → Your plugin root
    - `.agents/` folder → Your plugin root
    - `scripts/` folder → Your plugin root
+   - `.github/` folder (optional) → Your plugin root (contains GitHub Actions workflows)
 
 2. **Setup reference materials**:
    - **Windows**: `scripts\setup-ref-links.bat`
    - **macOS/Linux**: `./scripts/setup-ref-links.sh`
+   - This creates symlinks to Obsidian reference repos in `.ref/` folder
 
-3. **Optional: Setup ESLint**:
+3. **Setup ESLint** (recommended):
    ```bash
    node scripts/setup-eslint.mjs
    npm install
    npm run lint
    ```
+   
+   **What the setup script does automatically:**
+   - Updates `package.json` with ESLint 9 dependencies and lint scripts
+   - Creates/updates `eslint.config.mjs` (ESLint 9 flat config)
+   - Updates `esbuild.config.mjs` (fixes builtinModules import and adds entry point detection)
+   - Creates `scripts/lint-wrapper.mjs` (adds helpful success messages)
+   - Creates `.npmrc` (npm configuration)
+   - Removes legacy `.eslintrc` files if present
+   
+   **Note:** The script will update your existing `esbuild.config.mjs` and `eslint.config.mjs` files, but it preserves your custom configuration where possible. Review the changes after running the script.
+   
+   **Important:** Don't copy `package.json` from this template - it contains template-specific values. The setup script will update your existing `package.json` with only the necessary ESLint dependencies and scripts.
 
 ## First Time Developing Plugins?
 
@@ -177,6 +191,24 @@ Or for multiple URLs:
     }
 }
 ```
+
+## Troubleshooting
+
+### Upgrade Issues
+
+If you're upgrading an existing plugin and encounter issues:
+
+1. **ESLint errors after setup**: Run `npm install` to ensure all dependencies are installed
+2. **Build errors**: Check that `esbuild.config.mjs` was updated correctly (the setup script should handle this automatically)
+3. **Entry point not found**: The setup script adds entry point detection - verify `esbuild.config.mjs` has the detection logic for both `src/main.ts` and `main.ts`
+4. **Workflow permission errors**: See [GitHub Actions Workflows (Optional)](#github-actions-workflows-optional) section above
+5. **Package.json conflicts**: Don't copy `package.json` from the template - the setup script updates your existing one with only the necessary additions
+
+### Common Issues
+
+- **`.ref` folder is empty**: Run the setup script (`scripts\setup-ref-links.bat` or `.sh`)
+- **Linting fails**: Make sure you ran `npm install` after running the ESLint setup script
+- **Build fails**: Check that `esbuild.config.mjs` exists and has the correct entry point detection
 
 ## API Documentation
 
