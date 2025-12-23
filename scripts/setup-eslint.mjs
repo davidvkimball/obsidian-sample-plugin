@@ -95,9 +95,6 @@ function generateEslintConfig(customRules = {}) {
     .map(([key, value]) => {
       if (typeof value === 'string') {
         return `      "${key}": "${value}"`;
-      } else if (Array.isArray(value)) {
-        const valueStr = JSON.stringify(value);
-        return `      "${key}": ${valueStr}`;
       } else {
         const valueStr = JSON.stringify(value);
         return `      "${key}": ${valueStr}`;
@@ -113,7 +110,7 @@ import globals from "globals";
 
 export default defineConfig([
   {
-    ignores: ["main.js", "node_modules/**", "dist/**", "*.js", "scripts/**"]
+    ignores: ["main.js", "node_modules/**", "dist/**", "*.js", "scripts/**", ".ref/**"]
   },
   ...obsidianmd.configs.recommended,
   {
@@ -342,7 +339,7 @@ ${indent}const entryPoint = hasSrcMain ? "src/main.ts" : "main.ts";
           );
         } else if (content.includes("import { builtinModules } from 'module'")) {
           content = content.replace(
-            /import\s+{\s*builtinModules\s*}\s+from\s+['']module['']/,
+            /import\s+{\s*builtinModules\s*}\s+from\s+['"]module['"]/,
             "import { builtinModules } from 'module';\nimport { existsSync } from 'fs';"
           );
         } else {

@@ -16,6 +16,8 @@ Applicability: Plugin
 
 ### Project Overview
 
+- **Architecture**: Organized structure - main code in `src/main.ts` and settings in `src/settings.ts`
+
 ### Important Project-Specific Details
 
 ### Maintenance Tasks

@@ -18,7 +18,7 @@ One-page cheat sheet for common Obsidian plugin development tasks.
 | `sync` or `quick sync` | Pull latest changes from all 6 core `.ref` repos |
 | `what's the latest` or `check updates` | Check what's new in reference repos (read-only, then ask to pull) |
 | `release ready?` | Run comprehensive release readiness checklist |
-| `summarize` | Generate git commit message from all changed files |
+| `summarize` | Generate git commit message from all changes since last tag (or uncommitted if no tag) |
 | `summarize for release` | Generate markdown release notes for GitHub |
 | `bump the version` or `bump version` | Bump version by 0.0.1 (patch) by default, or specify: `patch`, `minor`, `major`, or exact version |
 | `add ref [name]` | Add a reference project (external URL or local path) |
