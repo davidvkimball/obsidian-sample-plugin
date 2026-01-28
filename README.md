@@ -54,6 +54,13 @@ bash scripts/setup-ref-links.sh  # macOS/Linux
 - **6 core Obsidian projects** - API definitions, documentation, sample plugins, ESLint rules
 - **Project-specific references** - Add your own plugin/theme references as needed
 
+### Unit Testing with Vitest
+
+- **Ready to go** — Vitest + jsdom pre-configured with Obsidian API mocking
+- **Test your logic** — Pure functions (parsers, formatters, validators, migrations) run in Node.js without Obsidian
+- **Fast feedback** — `pnpm test` runs in under a second, `pnpm test:watch` re-runs on save
+- **See [`tests/README.md`](tests/README.md)** for the full testing guide with examples
+
 ### ESLint 9 with Obsidian Rules
 
 - **Exact parity with Review Bot** - Uses the same `obsidianmd.configs.recommended` configuration
