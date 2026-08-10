@@ -1,4 +1,4 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
+import { App, PluginSettingTab, Setting, SettingDefinitionItem } from "obsidian";
 import MyPlugin from "./main";
 
 export interface MyPluginSettings {
@@ -17,6 +17,34 @@ export class SampleSettingTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
+	/**
+	 * Declarative settings API (Obsidian 1.13 and later). Obsidian renders these
+	 * definitions itself and indexes them for the built-in settings search, so
+	 * prefer this over building the UI by hand in display().
+	 *
+	 * `key` is the property name on `this.plugin.settings`. The default
+	 * getControlValue/setControlValue implementations read, mutate and persist
+	 * that object, so no manual onChange or save call is needed here.
+	 */
+	getSettingDefinitions(): SettingDefinitionItem[] {
+		return [
+			{
+				name: 'Settings #1',
+				desc: 'It\'s a secret',
+				control: {
+					type: 'text',
+					key: 'mySetting',
+					placeholder: 'Enter your secret',
+				},
+			},
+		];
+	}
+
+	/**
+	 * Fallback for Obsidian versions before 1.13, which do not call
+	 * getSettingDefinitions(). Keep it in sync with the definitions above, or
+	 * drop it once the plugin's minAppVersion is 1.13.0 or later.
+	 */
 	display(): void {
 		const { containerEl } = this;
 
